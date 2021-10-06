@@ -1,23 +1,26 @@
 package app.pages;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import helpers.Driver;
-import static com.codeborne.selenide.Selenide.*;
 
-public class LoginPage extends BasePage {
+import static com.codeborne.selenide.Selenide.$x;
 
-    public SelenideElement loginField = $("#username");
-    public SelenideElement passwordField = $("#password");
-    public SelenideElement signInButton = $("button.radius");
+public class LoginPage {
 
-    public LoginPage(String pageUrl) {
-        super(pageUrl);
-    }
+    /**
+     * Локаторы для страницы LoginPage
+     */
 
-    public void login(String email, String password) {
-        loginField.setValue(email);
-        passwordField.setValue(password);
-        signInButton.click();
-        Driver.waitForUrlContains("secure");
+    protected SelenideElement textHeadingEnterInYourProfile = $x("//h2[contains(text(),'Войти или создать профиль')]");
+
+    /** Методы для тестов */
+
+    /**
+     * Сценарий №1. Проход по полному БП
+     */
+
+    public LoginPage assertTextHeadingEnterInYourProfileShouldBeVisible() {
+        (textHeadingEnterInYourProfile).shouldBe(Condition.visible).isDisplayed();
+        return this;
     }
 }
